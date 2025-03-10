@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"> Home </title> 
+    <link rel="stylesheet" th:href="@{/form_list.css}">
+</head>
+<body>
+    <h2>Stored Form Data</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Birthday</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="form : ${forms}">
+                <td th:text="${form.id}"></td>
+                <td th:text="${form.name}"></td>
+                <td th:text="${form.email}"></td>
+                <td th:text="${form.dateOfBirth}"></td>
+                <td th:text="${form.department}"></td>
+                <td>
+                    <a th:href="@{/edit/{id}(id=${form.id})}">
+                        <button style="background-color: blue; color: white;">Edit</button>
+                    </a>
+                    <a th:href="@{/delete/{id}(id=${form.id})}" 
+                        onclick="return confirm('Are you sure you want to delete this entry?');">
+                        <button style="background-color: red; color: white;">Delete</button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/">Add New Entry</a>
+</body>
+</html>
