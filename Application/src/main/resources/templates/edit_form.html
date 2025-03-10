@@ -25,10 +25,10 @@
         </div>
     
         <div class="mb-3">
-            <label class="form-label">Date of Birth:</label>
-            <input type="date" th:field="*{dateOfBirth}" class="form-control" 
-                   th:value="${#temporals.format(user.dateOfBirth, 'yyyy-MM-dd')}" />
-        </div>
+            <label for="birthday" class="form-label">Birthday:</label>
+            <input type="date" id="birthday" name="birthday" class="form-control"
+                th:attr="data-date=${#temporals.format(user.dateOfBirth, 'yyyy-MM-dd')}" />
+        </div>        
     
         <div class="mb-3">
             <label class="form-label">Gender:</label><br>
@@ -52,6 +52,16 @@
             <a href="/list" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let dateOfBirthField = document.getElementById("birthday");
+            let dobValue = dateOfBirthField.getAttribute("data-date");
     
+            if (dobValue) {
+                // Convert "YYYY-MM-DD" to the correct input format
+                dateOfBirthField.value = dobValue;
+            }
+        });
+    </script>
 </body>
 </html>
