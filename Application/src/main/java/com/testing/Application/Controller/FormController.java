@@ -1,6 +1,8 @@
 package com.testing.Application.Controller;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -79,10 +81,16 @@ public class FormController {
     
     
     // Delete Form Entry
-    @GetMapping("/delete/{id}")
-    public String deleteForm(@PathVariable("id") Long id) {
-        formService.deleteForm(id);
-        return "redirect:/list";
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteForm(@PathVariable Long id) {
+        // formService.deleteForm(id);
+        // return "redirect:/list";
+        try {
+            formService.deleteForm(id);
+            return ResponseEntity.ok("Deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting record.");
+        }
     }
  
 }
